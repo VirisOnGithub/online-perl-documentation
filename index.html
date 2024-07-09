@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Perl Cheatsheet</title>
+        <style>
+            :root {
+                --primary-color: darkorchid;
+                --secondary-color: rgb(209, 118, 255);
+            }
+            body {
+                scroll-behavior: smooth;
+            }
+            .courses {
+                margin: 0 25%;
+            }
+            nav {
+                position: sticky;
+                top: 0;
+                background-color: #fff;
+                z-index: 1000;
+                box-shadow: 0 2px 4px rgba(0,0,0,.1);
+                padding: 1rem 0;
+            }
+            .relative {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+            .title {
+                text-align: center;
+            }
+            .essayer, .sommaire {
+                display: block;
+                margin: 1rem auto;
+                padding: .5rem 1rem;
+                background-color: var(--primary-color);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+
+                position: absolute;
+                top: -1rem;
+            }
+            .essayer {
+                right: 1rem;
+            }
+            .sommaire {
+                left: 1rem;
+            }
+            .cmd {
+                font-weight: bold;
+            }
+            li {
+                margin: .5rem 0;
+            }
+            /* centrage et format des tableaux */
+            table {
+                margin: 1rem auto;
+                border-collapse: collapse;
+
+                & th, td {
+                    border: 1px solid black;
+                    padding: 5px;
+                }
+                & th {
+                    background-color: lightgrey;
+                }
+            }
+            .exemple {
+                margin-top: .5rem;
+                padding: .5rem;
+                background-color: var(--secondary-color);
+                border: 2px solid var(--primary-color);
+            }
+            .attention {
+                margin-top: .5rem;
+                padding: .5rem;
+                background-color: rgb(255, 118, 118);
+                border: 2px solid darkred;
+
+                & > img {
+                    width: 1.5rem;
+                    margin: 0 .5rem 0 0;
+                    vertical-align: middle;
+                }
+            }
+            .information {
+                margin-top: .5rem;
+                padding: .5rem;
+                background-color: rgb(118, 255, 118);
+                border: 2px solid darkgreen;
+
+                & > img {
+                    width: 1.5rem;
+                    margin: 0 .5rem 0 0;
+                    vertical-align: middle;
+                }
+            }
+            #search {
+                background-color: var(--secondary-color);
+                border: none;
+
+                &::placeholder {
+                    color: black;
+                }
+
+                &:active, &:focus {
+                    outline: none;
+                }
+            }
+        </style>
+        <style>
+            /* animations pour les titres du sommaire */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+            }
+
+            .animate-in {
+                animation: fadeIn 0.5s forwards;
+            }
+
+            .animate-out {
+                animation: fadeOut 0.5s forwards;
+            }
+        </style>
+        <link rel="stylesheet" href="prism.css"></link>
+    </head>
+    <body>
+        <div class="courses">
+            <nav>
+                <div class="relative">
+                    <h1 class="title">Commandes Perl</h1>
+                    <button class="sommaire">Sommaire</button>
+                    <button class="essayer">Essayer le code</button>
+                    <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;"><input type="text" name="search" id="search" placeholder="Chercher ici"></div>
+                </div>
+            </nav>
+            <div class="container"></div>
+        </div>
+    </body>
+    <script src="prism.js"></script>
+    <script>
+        Prism.languages.perl = Prism.languages.extend('perl', {
+            'function': /\b(?:print|defined|sin|cos|exp|log|abs|sqrt|length|substr|chop|chomp|reverse|next|last|until|redo|open|die|lc|uc|quotemeta|shift|keys|sort|scalar|ref|(?<=sub\s)\w+|\w+(?=\()|new\d?|DESTROY|isa)\b/,
+            'maths': /\b(?:(?:cos|sin|acos|asin|atan\d?|tan)h?)\b/,
+            'copy': /\b(?:copy|move)\b/,
+            'keyword': /\b(?:my|our|use|sub|return|package|BEGIN|END)\b/,
+            'operator' : /\b(?:eq|ne|lt|le|gt|ge|cmp|and|or|not|xor)\b/,
+            'conditions': /\b(?:while|if|else|do|for|foreach)\b/,
+            'logical': /(?:&&|\|\||!|=>|->|\\|\+\+|==|!=|<=|>=|<|>)/,
+            'hashvariables' : /(?<=\{)\w+(?=\})/,
+            'types' : /\b(?:scalar|array|hash)\b/i,
+            'boolean': /\b(?:true|false|undef)\b/,
+            'packages': /(?:strict|warnings|Carp|Data|Dumper|Math|Trig|File|Copy|MonPackage|Exporter|Vehicule|Velo|SUPER|UNIVERSAL)/,
+            'number': /(?:π|[0-9])/,
+        });
+        Prism.languages.bash = Prism.languages.extend('bash', {
+            'function': /\b(?:echo|printf|read|perl|touch)\b/,
+            'keyword': /\b(?:if|else|elif|fi|then|do|done|for|in|while|until|break|continue|return|exit|case|esac|function|local|export|unset|eval|exec|source)\b/,
+            'variable': /\$\w+/,
+            'parameters': /\b(?:-h|-v|-q|-d|-f|-l|-a|-r|-w|-x|-s|-e|-z|-n|-o|-t|-O|-G|-L|-S|-N|-nt|-ot|-ef|-eq|-ne|-lt|-le|-gt|-ge|-a|-o|-z|-n)\b/,
+            'filenames': /\b(?:\w*\.\w+)\b/
+        })
+    </script>
+    <style>
+        .token.conditions {
+            color: #b6009e;
+        }
+        .token.filenames {
+            color: #b6009e;
+        }
+        .token.logical {
+            color: #999;    
+        }
+        .token.hashvariables {
+            color: #45f500;
+        }
+        .token.types {
+            color: #f50000;
+        }
+        .token.packages {
+            color: #ff520d;
+        }
+        .token.maths, .token.copy {
+            color: #dd4a68;
+        }
+    </style>
+    <script>
+        function formatCode(paragraph) {
+            const regex = /£(.*?)£/gs;
+            const formattedParagraph = paragraph.replace(regex, "<code>$1</code>");
+            return formattedParagraph;
+        }
+        // fetch json
+        fetch("./commandes.json")
+            .then(response => response.json())
+            .then(data => {
+                const container = document.querySelector(".container")
+                data.forEach(section => {
+                    const h2 = document.createElement("h2") 
+                    h2.id = section.titre.toLowerCase().replace(/ /g, "-").normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                    h2.textContent = section.titre
+                    container.appendChild(h2)
+                    const ul = document.createElement("ul")
+                    container.appendChild(ul)
+                    section.commandes.forEach(commande => {
+                        const li = document.createElement("li")
+                        const cmd = document.createElement("span")
+                        cmd.textContent = commande.commande
+                        cmd.classList.add("cmd")
+                        li.appendChild(cmd)
+                        li.innerHTML += ` : ${formatCode(commande.description)}`
+                        ul.appendChild(li)
+
+                        if(commande.exemple){
+                            const exemplediv = document.createElement("div")
+                            exemplediv.classList.add("exemple")
+                            exemplediv.innerHTML = "<strong>Exemple : </strong>"
+                            const pre = document.createElement("pre")
+                            const code = document.createElement("code")
+                            code.textContent = commande.exemple
+                            pre.appendChild(code)
+                            exemplediv.appendChild(pre)
+                            li.appendChild(exemplediv)
+                        }
+
+                        if(commande.attention){
+                            const attentiondiv = document.createElement("div")
+                            attentiondiv.classList.add("attention")
+                            attentiondiv.innerHTML = "<img src='assets/attention.svg' alt='attention'>"
+                            attentiondiv.innerHTML += formatCode(commande.attention.replace("\n", "<br>"))
+                            li.appendChild(attentiondiv)
+                        }
+
+                        if(commande.information){
+                            const informationdiv = document.createElement("div")
+                            informationdiv.classList.add("information")
+                            informationdiv.innerHTML = "<img src='assets/information.svg' alt='information'>"
+                            informationdiv.innerHTML += formatCode(commande.information)
+                            li.appendChild(informationdiv)
+                        }
+                    })
+                })
+            })
+            // surlignage perl + bash
+            .then(data => { 
+                document.querySelectorAll("code").forEach(code => {
+                    if(code.textContent.startsWith("bash")){
+                        code.textContent = code.textContent.replace("bash", "");
+                        code.classList.add("language-bash");
+                    } else {
+                        code.classList.add("language-perl");
+                    }
+                });
+                Prism.highlightAll();
+            })
+    </script>
+    <script>
+        // iframe pour essayer le code
+        document.querySelector(".essayer").addEventListener("click", () => {
+            if(document.body.querySelector("iframe")){
+                document.body.querySelector("iframe").remove();
+                document.body.style.display = "block";
+                document.querySelector(".courses").style.margin = "0 25%";
+                let elementsToReduce = [document.querySelector("nav"), document.querySelector(".container")];
+                elementsToReduce.forEach(element => {
+                    element.style.marginLeft = "0";
+                    element.style.marginRight = "0";
+                });
+            } else {
+                document.body.innerHTML += `<iframe src="https://onecompiler.com/perl" style="width: 50vw; height: 100vh; position: fixed; right: 0;"></iframe>`;
+
+                document.body.style.display = "flex";
+                document.querySelector(".courses").style.margin = "0 50% 0 0";
+
+                let elementsToReduce = [document.querySelector("nav"), document.querySelector(".container")];
+                elementsToReduce.forEach(element => {
+                    element.style.marginLeft = "1rem";
+                    element.style.marginRight = "1rem";
+                });
+            }
+        })
+
+        var isDeployed = false;
+
+        // sommaire
+        document.querySelector(".sommaire").addEventListener("click", () => {
+            const nav = document.querySelector("nav");
+            if (!isDeployed) {
+                const h2s = document.querySelectorAll("h2");
+                const ul = document.createElement("ul");
+                h2s.forEach(h2 => {
+                    const li = document.createElement("li");
+                    const a = document.createElement("a");
+                    a.href = `#${h2.id}`;
+                    a.textContent = h2.textContent;
+                    a.onclick = () => {
+                        const ul = document.querySelector("nav ul");
+                        ul.classList.add("animate-out");
+                        ul.addEventListener('animationend', () => ul.remove());
+                        isDeployed = false;
+                    }
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+                ul.classList.add("animate-in");
+                nav.appendChild(ul);
+                isDeployed = true;
+            } else {
+                const ul = document.querySelector("nav ul");
+                ul.classList.replace("animate-in", "animate-out");
+                ul.addEventListener('animationend', () => {
+                    ul.remove();
+                    isDeployed = false;
+                }, { once: true });
+            }
+        });
+    </script>
+    <script>
+        document.querySelector("#search").addEventListener("input", (e) => {
+            const search = e.target.value.toLowerCase();
+            const lis = document.querySelectorAll("li");
+            lis.forEach(li => {
+                if(li.textContent.toLowerCase().includes(search)){
+                    li.style.display = "block";
+                } else {
+                    li.style.display = "none";
+                }
+            })
+            let h2s = document.querySelectorAll("h2");
+            h2s.forEach(h2 => {
+               const hiddenLis = h2.nextElementSibling.querySelectorAll("li[style='display: none;']");
+               h2.style.display = hiddenLis.length === h2.nextElementSibling.querySelectorAll("li").length ? "none" : "block";
+            });
+        })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    //for dev
+    document.addEventListener("keydown", function(event) {
+        if (event.code === "Space" && document.getElementById("search") != document.activeElement) { // évitons d'aller en bas quand on tape dans le champ de recherche
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    });
+</script>
+</html>

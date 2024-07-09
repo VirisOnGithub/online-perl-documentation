@@ -1,0 +1,893 @@
+[
+    {
+        "titre" : "Préambule",
+        "commandes" : [
+            {
+                "commande" : "Shebang",
+                "description" : "Le shebang est la première ligne d'un script Perl. Il indique le chemin vers l'interpréteur Perl",
+                "exemple" : "#!/usr/bin/perl"
+            },
+            {
+                "commande" : "Strict",
+                "description" : "La directive use strict; force le script à déclarer toutes les variables",
+                "exemple" : "use strict;"
+            },
+            {
+                "commande" : "Warnings",
+                "description" : "La directive use warnings; force le script à afficher les avertissements",
+                "exemple" : "use warnings;"
+            },
+            {
+                "commande" : "Commentaires",
+                "description" : "Les commentaires commencent par un #",
+                "exemple" : "# Ceci est un commentaire"
+            },
+            {
+                "commande" : "Déclaration d'une variable",
+                "description" : "Les variables sont déclarées avec £my£",
+                "exemple" : "my $a = 1;",
+                "information" : "Les variables sont préfixées par £$£ pour les scalaires, £@£ pour les tableaux et £%£ pour les tables de hachages",
+                "attention" : "On ne peut pas déclarer plusieurs variables sur une même ligne : <pre>£my $a = 1, $b = 2; # INCORRECT\n# Si on veut faire cela absolument, il faut passer par les listes\nmy ($a, $b) = (1, 2); # CORRECT£</pre>"
+            }
+        ]
+    },
+    {
+        "titre" : "Informations générales utiles",
+        "commandes" : [
+            {
+                "commande" : "Variables spéciales",
+                "description" : "<ul><li>£$_£ : variable par défaut</li><li>£@_£ : tableau des paramètres d'une fonction</li><li>£$a£ à £$z£ : variables spéciales</li><li>£$1£ à £$9£ : variables spéciales pour les expressions régulières</li></ul>"
+            },
+            {
+                "commande" : "Le tableau @ARGV",
+                "description" : "Le tableau £@ARGV£ contient les arguments passés au script Perl",
+                "exemple" : "bash perl script.pl arg1 arg2 arg3",
+                "information" : "Dans cet exemple, £@ARGV£ contiendra £(\"arg1\", \"arg2\", \"arg3\")"
+            }
+        ]
+    },
+    {
+        "titre" : "Maths",
+        "commandes" : [
+            {
+                "commande" : "sin($x)",
+                "description" : "renvoie le sinus de x",
+                "exemple" : "sin(π/4) == √2/2"
+            },
+            {
+                "commande" : "cos($x)",
+                "description" : "renvoie le cosinus de x",
+                "exemple" : "cos(π/3) == 1/2"
+            },
+            {
+                "commande" : "exp($x)",
+                "description" : "renvoie l'exponentielle de x",
+                "exemple" : "exp(0) == 1"
+            },
+            {
+                "commande" : "log($x)",
+                "description" : "renvoie le ln de x",
+                "exemple" : "log(e) == 1"
+            },
+            {
+                "commande" : "abs($x)",
+                "description" : "renvoie la valeur absolue de x",
+                "exemple" : "abs(-3) == 3"
+            },
+            {
+                "commande" : "sqrt($x)",
+                "description" : "renvoie la racine carrée de x",
+                "exemple" : "sqrt(9) == 3"
+            }
+
+        ]
+    },
+    {
+        "titre" : "Chaînes de caractères",
+        "commandes" : [
+            {
+                "commande" : "$x.$y",
+                "description" : "concatène x et y",
+                "exemple" : "\"a\".\"b\" == \"ab\""
+            },
+            {
+                "commande" : "length($x)",
+                "description" : "renvoie la longueur de x",
+                "exemple" : "length(\"abc\") == 3"
+            },
+            {
+                "commande" : "substr($x, offset, length)",
+                "description" : "renvoie la sous-chaîne de x à partir de offset et de longueur length. Si offset est négatif, la sous-chaîne commence à partir de la fin de x",
+                "exemple" : "substr(\"abcdef\", 2, 3) == \"cde\"",
+                "information" : "Le paramètre length est optionnel"
+            },
+            {
+                "commande" : "chop($x)",
+                "description" : "supprime le dernier caractère de x",
+                "exemple" : "chop(\"abc\\n\") == \"abc\""
+            },
+            {
+                "commande" : "chomp($x)",
+                "description" : "supprime le dernier caractère de x si c'est un retour à la ligne",
+                "exemple" : "chomp(\"abc\\n\") == \"abc\""
+            },
+            {
+                "commande" : "reverse($x)",
+                "description" : "renvoie x inversé. Attention, les fins de ligne sont inversées aussi",
+                "exemple" : "reverse(\"abc\\n\") == \"\\ncba\""
+            },
+            {
+                "commande" : "index($ch1, $subch1, $position)",
+                "description" : "renvoie la position de la première occurrence de subch1 dans ch1 à partir de la position position. Si position est négatif, la recherche commence à partir de la fin de ch1. position est optionnel"
+            },
+            {
+                "commande" : "rindex($ch1, $subch1, $position)",
+                "description" : "renvoie la position de la dernière occurrence de subch1 dans ch1 à partir de la position position. Si position est négatif, la recherche commence à partir de la fin de ch1. position est optionnel"
+            }
+        ]
+    },
+    {
+        "titre" : "Opérateurs de tests",
+        "commandes" : [
+            {
+                "commande" : "Valeurs vraies et fausses",
+                "description" : "<ul><li>Les valeurs considérées comme fausses sont le chiffre 0, la chaîne de caractères \"0\", la chaîne vide (\"\" ou '') et £undef£</li><li>Toutes les autres valeurs sont vraies, y compris la chaîne de caractères \"00\"</li></ul>"
+            },
+            {
+                "commande" : "Tests dépendants du contexte",
+                "description" : "<table><thead><th>Contexte imposé</th><th>numérique</th><th>chaîne de caractères</th></thead><tbody><tr><td>égalité</td><td>==</td><td>eq</td></tr><tr><td>différence</td><td>!=</td><td>ne</td></tr><tr><td>infériorité</td><td>&lt;</td><td>lt</td></tr><tr><td>supériorité</td><td>&gt;</td><td>gt</td></tr><tr><td>inf ou égal</td><td>&lt;=</td><td>le</td></tr><tr><td>sup ou égal</td><td>&gt;=</td><td>ge</td></tr><tr><td>comparaison</td><td>&lt;=&gt;</td><td>cmp</td></tr></tbody></table>"
+            },
+            {
+                "commande" : "Fonction de comparaison",
+                "description" : "$x<=>$y renvoie -1 si x < y, 0 si x = y et 1 si x > y"
+            }
+        ]
+    },
+    {
+        "titre" : "Structures de contrôle",
+        "commandes" : [
+            {
+                "commande" : "if",
+                "description" : "<pre>£if (condition) { \n  bloc de code \n} £</pre>",
+                "exemple" : "if ($a > $b) { \n  print \"a est plus grand que b\"; \n}"
+            },
+            {
+                "commande" : "if else",
+                "description" : "<pre>£if (condition) { \n  bloc de code \n} else { \n  autre bloc de code \n} £</pre>",
+                "exemple" : "if ($a > $b) { \n  print \"a est plus grand que b\"; \n} else { \n  print \"a est plus petit que b\"; \n}"
+            },
+            {
+                "commande" :"Modificateur d'instruction",
+                "description" : "<pre>£instruction if (condition);£</pre>",
+                "exemple" : "print \"a est plus grand que b\" if ($a > $b);"
+            }
+        ]
+    },
+    {
+        "titre" : "Boucles",
+        "commandes" : [
+            {
+                "commande" : "while",
+                "description" : "<pre>£while (condition) { \n  bloc de code \n} £</pre>",
+                "exemple" : "while ($a < 10) { \n  print $a; \n  $a++; \n}"
+            },
+            {
+                "commande" : "Modificateur d'instruction",
+                "description" : "<pre>£instruction while (condition);£</pre>",
+                "exemple" : "print $a while ($a < 10);"
+            },
+            {
+                "commande" : "do while",
+                "description" : "<pre>£do { \n  bloc de code \n} while (condition);£</pre>",
+                "exemple" : "do { \n  print $a; \n  $a++; \n} while ($a < 10);",
+                "attention" : "Les instructions £next£, £last£ et £redo£ ne fonctionnent pas dans une boucle £do while£"
+            },
+            {
+                "commande" : "for",
+                "description" : "<pre>£for (initialisation; condition; incrémentation) { \n  bloc de code \n} £</pre>",
+                "exemple" : "for ($a = 0; $a < 10; $a++) { \n  print $a; \n}"
+            },
+            {
+                "commande" : "foreach",
+                "description" : "<pre>£foreach $var (@liste) { \n  bloc de code \n} £</pre>",
+                "exemple" : "foreach $a (1..10) { \n  print $a; \n}",
+                "information" : "On peut également utiliser l'aplatissement de tableaux : £foreach $var (3, \"toto\" @t1, @t2) { ... }£\n\nOn peut aussi n'utiliser aucune variable de boucle : C'est alors la variable £$_£ qui est utilisée par défaut. <pre>£foreach (1..10) { \n  print $_; \n}£</pre>"
+            },
+            {
+                "commande" : "next",
+                "description" : "passe à l'itération suivante de la boucle",
+                "exemple" : "foreach $a (1..10) { \n  next if $a == 5; \n  print $a; \n}"
+            },
+            {
+                "commande" : "last",
+                "description" : "sort de la boucle",
+                "exemple" : "foreach $a (1..10) { \n  last if $a == 5; \n  print $a; \n}"
+            },
+            {
+                "commande" : "redo",
+                "description" : "recommence l'itération actuelle de la boucle",
+                "exemple" : "foreach $a (1..10) { \n  redo if $a == 5; \n  print $a; \n}"
+            },
+            {
+                "commande" : "until",
+                "description" : "<pre>£until (condition) { \n  bloc de code \n} £</pre>",
+                "exemple" : "until ($a == 10) { \n  print $a; \n  $a++; \n}"
+            }
+        ]
+    },
+    {
+        "titre" : "Listes & tableaux",
+        "commandes" : [
+            {
+                "commande" : "Déclaration",
+                "description" : "<pre>£my @liste = (valeur1, valeur2, ...);£</pre>",
+                "exemple" : "my @nombres = (1, 2, 3);"
+            },
+            {
+                "commande" : "Opérateur d'intervalle",
+                "description" : "<pre>£my @liste = (valeur1..valeur2);£</pre>",
+                "exemple" : "my @nombres = (1..10); \n# @nombres contient 1, 2, 3, 4, 5, 6, 7, 8, 9, 10",
+                "attention" : "Cela fonctionne aussi avec des lettres : £my @lettres = ('a'..'z');£ contient toutes les lettres de l'alphabet"
+            },
+            {
+                "commande" : "Accès à un élément",
+                "description" : "<pre>£print $liste[index];£</pre>",
+                "exemple" : "my @t = (3,5); # d´eclaration et initialisation \n$t[1] = 4; # affectation d’un élément \nprint \"$t[0]\\n\"; # affichage d’un élément",
+                "information" : "On peut aussi accéder à un tableau par des indices négatifs : dans l'exemple précédent, £$nombres[-1]£ renvoie 3"
+            },
+            {
+                "commande" : "Nombres d'éléments d'un tableau",
+                "description" : "<pre>£print scalar @liste; # ou print scalar(@liste);£</pre>",
+                "exemple" : "my @nombres = (1..10); \nprint scalar @nombres; # affiche 10",
+                "information" : "£$#t£ renvoie l'indice du dernier élément de la liste t, donc £$#t = scalar(@t) - 1£<br>Pour stocker la taille d'un tableau dans une variable, on peut utiliser £my $taille = @t;£"
+            },
+            {
+                "commande" : "Vérification de l'existence d'un élément",
+                "description" : "En Perl, si vous tentez d'accéder à un élément qui n'existe pas, on aura simplement £undef£. Pour tester l'existence dans le tableau, on peut faire comme suit : <br> <pre>£if (exists $liste[index]) { \n  # code \n}£</pre>"
+            },
+            {
+                "commande" : "Affectation et copie",
+                "description" : "<pre>£my ($var1, $var2) = (1, 2); \n# ou\nmy @a = @t£</pre> ",
+                "attention" : "Lors de la copie de £@t£ dans £@a£, le tableau £@a£ perd ses anciennes valeurs",
+                "information" : "Les listes peuvent avoir d'autres utilités : <pre>£ ($a, $b) = ($b, $a); # échanger deux valeurs sans 3e variable\n my ($a, $b); # déclaration de plusieurs variables£</pre>"
+            },
+            {
+                "commande" : "Aplatissement de tableaux",
+                "description" : "Pour transformer un tableau en une liste, on peut utiliser £my @liste = (@t1, @t2);£",
+                "exemple" : "my @t1 = (1, 2); \nmy @t2 = (3, 4); \nmy @liste = (@t1, @t2); \n# @liste contient (1, 2, 3, 4)",
+                "information" : "On ne peut pas vraiment faire de tableaux de tableaux : Lors de l'affectation, les tableaux sont aplatis"
+            },
+            {
+                "commande" : "Absorption de tableaux",
+                "description" : "L'instruction £($a, @s) = @t£ est parfaitement valide en Perl. £$a£ contiendra le premier élément de £@t£ et £@s£ le reste",
+                "exemple" : "my @t = (1, 2, 3, 4); \nmy ($a, @s) = @t; \n# $a contient 1 et @s contient (2, 3, 4)" 
+            }
+        ]
+    },
+    {   
+        "titre" : "Fonctions de tableaux",
+        "commandes" : [
+            {
+                "commande" : "unshift(@liste, @elements)",
+                "description" : "Ajoute les éléments en début de liste",
+                "exemple" : "my @t = (3, 4); \nunshift(@t, 1, 2); \n# @t contient (1, 2, 3, 4) \nunshift(@t, 0); \n# @t contient (0, 1, 2, 3, 4)",
+                "information" : "On peut aussi ajouter un seul élément : £unshift(@t, 1);£"
+            },
+            {
+                "commande" : "shift(@liste)",
+                "description" : "Supprime le premier élément de la liste et le renvoie",
+                "exemple" : "my @t = (1, 2, 3); \nmy $a = shift(@t); \n# $a contient 1 et @t contient (2, 3)"
+            },
+            {
+                "commande" : "push(@liste, @elements)",
+                "description" : "Ajoute les éléments en fin de liste",
+                "exemple" : "my @t = (1, 2); \npush(@t, 3, 4); \n# @t contient (1, 2, 3, 4) \npush(@t, 5); \n# @t contient (1, 2, 3, 4, 5)",
+                "information" : "On peut aussi ajouter un seul élément : £push(@t, 1);£"
+            },
+            {
+                "commande" : "pop(@liste)",
+                "description" : "Supprime le dernier élément de la liste et le renvoie",
+                "exemple" : "my @t = (1, 2, 3); \nmy $a = pop(@t); \n# $a contient 3 et @t contient (1, 2)"
+            },
+            {
+                "commande" : "reverse(@liste)",
+                "description" : "Inverse la liste",
+                "exemple" : "my @t = (1, 2, 3); \nmy @r = reverse(@t); \n# @r contient (3, 2, 1)"
+            },
+            {
+                "commande" : "splice(@liste, offset, length, @elements)",
+                "description" : "Supprime length éléments à partir de offset et les remplace par les éléments de @elements",
+                "exemple" : "my @t = (1, 2, 3, 4, 5); \nsplice(@t, 2, 2, 6, 7); \n# @t contient (1, 2, 6, 7, 5)"
+            },
+            {
+                "commande" : "Tranches de tableaux",
+                "description" : "Pour obtenir une tranche de tableau, on peut utiliser £@t[2..4]£ qui renvoie les éléments 2, 3 et 4 de £@t£",
+                "exemple" : "my @t = (1, 2, 3, 4, 5); \nmy @s = @t[2..4]; \n# @s contient (3, 4, 5)"
+            }
+        ]
+    },
+    {
+        "titre" : "Fonctions de chaînes de caractères",
+        "commandes" : [
+            {
+                "commande" : "qw",
+                "description" : "Permet de déclarer une liste de chaînes de caractères",
+                "exemple" : "my @t = qw(Bonjour à tous); \n# @t contient (\"Bonjour\", \"à\", \"tous\")",
+                "attention" : "Rien ne peut regrouper deux mots, pas même des simples ou doubles quotes"
+            },
+            {
+                "commande" : "join($separateur, @liste)",
+                "description" : "Rassemble les éléments de la liste en une chaîne de caractères séparés par le séparateur",
+                "exemple" : "my @t = (1, 2, 3); \nmy $s = join(\", \", @t); \n# $s contient \"1, 2, 3\""
+            },
+            {
+                "commande" : "split($regex, $chaine)",
+                "description" : "Sépare la chaîne de caractères en une liste d'éléments en fonction du séparateur",
+                "exemple" : "my $s = \"1, 2, 3\"; \nmy @t = split(\/,\/, $s); \n# @t contient (1, 2, 3)"
+            },
+            {
+                "commande" : "sort({ comparaison } @liste)",
+                "description" : "Trie la liste selon la fonction de comparaison donnée. Les variables £$a£ et £$b£ sont utilisées pour comparer les éléments",
+                "exemple" : "my @t = (3, 1, 2); \nmy @s = sort { $a <=> $b } @t; \n# @s contient (1, 2, 3)",
+                "information" : "Pour trier par ordre alphabétique, on peut utiliser £sort { $a cmp $b }£, ou encore £sort @t£",
+                "attention" : "Les variables £$a£ et £$b£ sont locales à la fonction de comparaison, et prennent le dessus sur les variables globales du même nom"
+            },
+            {
+                "commande" : "grep { condition } @liste",
+                "description" : "Filtre les éléments de la liste selon la condition donnée",
+                "exemple" : "my @t = (1, 2, 3, 4, 5); \nmy @s = grep { $_ % 2 == 0 } @t; \n# @s contient (2, 4)",
+                "information" : "La variable attendue dans la condition est £$_£"
+            },
+            {
+                "commande" :"map { transformation } @liste",
+                "description" : "Applique la transformation à chaque élément de la liste",
+                "exemple" : "my @t = (1, 2, 3); \nmy @s = map { $_ * 2 } @t; \n# @s contient (2, 4, 6)",
+                "information" : "La variable attendue dans la transformation est £$_£"
+            },
+            {
+                "commande" : "lc",
+                "description" : "Met en minuscules",
+                "exemple" : "lc(\"BONJOUR\") == \"bonjour\"",
+                "information" : "On peut aussi utiliser £uc£ pour mettre en majuscules : £uc(\"bonjour\") == \"BONJOUR\"£"
+            }
+        ]
+    },
+    {
+        "titre" : "Fonctions",
+        "commandes" : [
+            {
+                "commande" : "Déclaration",
+                "description" : "<pre>£sub nom_fonction { \n  bloc de code \n}£</pre>",
+                "exemple" : "sub dire_bonjour { \n  print \"Bonjour à tous\\n\"; \n}",
+                "information" : "Les fonctions peuvent être déclarées n'importe où dans le script, mais il est conseillé de les déclarer en début de script"
+            },
+            {
+                "commande" : "Accès aux paramètres",
+                "description" : "Les paramètres sont stockés dans le tableau £@_£",
+                "exemple" : "sub dire { \n  my ($message) = @_; \n  print \"$message\\n\"; \n} \ndire(\"Bonjour à tous\");",
+                "information" : "Une autre manière de récupérer les paramètres est d'utiliser £shift£ : <pre>£sub dire { \n  my $message = shift; \n  print \"$message\\n\"; \n}£</pre>"
+            },
+            {
+                "commande" : "Utilisation",
+                "description" : "Pour appeler une fonction, on utilise son nom suivi des paramètres entre parenthèses",
+                "exemple" : "dire(\"Bonjour à tous\");"
+            },
+            {
+                "commande" : "Retour de valeur",
+                "description" : "Pour retourner une valeur, on utilise £return£",
+                "exemple" : "sub somme { \n  my ($a, $b) = @_; \n  return $a + $b; \n} \nmy $s = somme(1, 2); \n# $s contient 3",
+                "information" : "Il est tout à fait possible de retourner une liste en Perl : <pre>£sub liste { \n  return (1, 2, 3); \n} \nmy @l = liste(); \n# @l contient (1, 2, 3)£</pre>"
+            },
+            {
+                "commande" : "Fonctions anonymes",
+                "description" : "Les fonctions anonymes sont des fonctions sans nom. Elles sont déclarées avec £sub£ sans nom",
+                "exemple" : "my $somme = sub { \n  my ($a, $b) = @_; \n  return $a + $b; \n}; \nmy $s = $somme->(1, 2); \n# $s contient 3"
+            }
+        ]
+    },
+    {
+        "titre" : "Tables de hachages",
+        "commandes" : [
+            {
+                "commande" : "Déclaration",
+                "description" : "<pre>£my %table = (cle1 => valeur1, cle2 => valeur2, ...);£</pre>",
+                "exemple" : "my %personne = (nom => \"Dupont\", prenom => \"Jean\");"
+            },
+            {
+                "commande" : "Accès",
+                "description" : "<pre>£print $table{cle};£</pre>",
+                "exemple" : "my %personne = (nom => \"Dupont\", prenom => \"Jean\"); \nprint $personne{nom}; \n# affiche \"Dupont\"",
+                "attention" : "Si la clé comporte d'autres caractères que des lettres, des chiffres, et des <i>underscores</i>, alors il faut entourer la clé par des simples ou doubles quotes."
+            },
+            {
+                "commande" :"La fonction £keys£",
+                "description" : "Renvoie la liste des clés de la table de hachage",
+                "exemple" : "my %personne = (nom => \"Dupont\", prenom => \"Jean\"); \nmy @cles = keys %personne; \n# @cles contient (\"nom\", \"prenom\")",
+                "information" :"Ainsi, pour obtenir une liste de couples clés/valeurs, on peut faire : <pre>£foreach my $cle (keys %personne) { \n  print \"$cle : $personne{$cle}\\n\"; \n}£</pre>",
+                "attention" : "L'ordre des clés n'est pas garanti par la fonction £keys£, mais toutes les clés sont renvoyées."
+            },
+            {
+                "commande" : "La fonction £values£",
+                "description" : "Renvoie la liste des valeurs de la table de hachage",
+                "exemple" : "my %personne = (nom => \"Dupont\", prenom => \"Jean\"); \nmy @valeurs = values %personne; \n# @valeurs contient (\"Dupont\", \"Jean\")",
+                "attention" : "L'ordre des valeurs n'est pas garanti par la fonction £values£, mais toutes les valeurs sont renvoyées."
+            },
+            {
+                "commande" : "La fonction £each£",
+                "description" : "Renvoie un couple clé/valeur de la table de hachage",
+                "exemple" : "my %personne = (nom => \"Dupont\", prenom => \"Jean\"); \nwhile (my ($cle, $valeur) = each %personne) { \n  print \"$cle : $valeur\\n\"; \n}",
+                "attention" : "La fonction each étant une fonction avec état, elle est compliquée à utiliser en dehors de l'exemple ci-dessus."
+            },
+            {
+                "commande" : "Autovivification",
+                "description" : "L'autovivification est le fait de créer automatiquement des tables de hachages imbriquées lors de l'accès à une clé inexistante",
+                "exemple" : "my %personne = (nom => \"Dupont\", prenom => \"Jean\"); \n $personne{adresse} = \"1 rue Gambetta\"; \n# %personne contient maintenant (nom => \"Dupont\", prenom => \"Jean\", adresse => \"1 rue Gambetta\")"
+            },
+            {
+                "commande" : "Vérification de l'existence d'un élément",
+                "description" : "Pour vérifier l'existence d'une clé dans une table de hachage, on peut utiliser £exists£",
+                "exemple" : "my %personne = (nom => \"Dupont\", prenom => \"Jean\"); \nif (exists $personne{nom}) { \n  print \"La clé nom existe\\n\"; \n}",
+                "attention" : "Un test avec £defined£ est différent : Voici un tableau qui résume les différences entre les deux fonctions : <table><thead><th>Clé</th><th>exists</th><th>defined</th></thead><tbody><tr><td>Clé absente</td><td>Faux</td><td>Faux</td></tr><tr><td>Clé présente, valeur définie</td><td>Vrai</td><td>Vrai</td></tr><tr><td>Clé présente, valeur £undef£</td><td>Vrai</td><td>Faux</td></tr></tbody></table>"
+            },
+            {
+                "commande" : "Suppression d'un élément",
+                "description" : "Pour supprimer un élément d'une table de hachage, on peut utiliser £delete£",
+                "exemple" : "my %personne = (nom => \"Dupont\", prenom => \"Jean\"); \ndelete $personne{nom}; \n# %personne contient maintenant (prenom => \"Jean\")",
+                "attention" : "£delete($personne{nom})£ est bien différent de £$personne{nom} = undef£ : dans le premier cas, la clé est supprimée, dans le second, la clé existe toujours, mais sa valeur est £undef£"
+            },
+            {
+                "commande" : "Nombre d'éléments d'une table de hachage",
+                "description" : "Pour obtenir le nombre d'éléments d'une table de hachage, on peut utiliser £scalar£",
+                "exemple" : "my %personne = (nom => \"Dupont\", prenom => \"Jean\"); \nprint scalar keys %personne; \n# affiche 2"
+            },
+            {
+                "commande": "Passage d'une table de hachage à un tableau",
+                "description": "Pour passer une table de hachage à un tableau, on peut utiliser £my @t = %table;£",
+                "exemple": "my @t  = (\"nom\", \"Dupont\", \"prenom\", \"Jean\"); \nmy %personne = @t; \n# %personne contient (nom => \"Dupont\", prenom => \"Jean\")",
+                "attention": "Si le tableau n'a pas un nombre pair d'éléments, Perl affichera un avertissement"
+            },
+            {
+                "commande" : "Passage d'un tableau à une table de hachage",
+                "description" : "Pour passer un tableau à une table de hachage, on peut utiliser £my %table = @t;£",
+                "exemple" : "my %personne = (nom => \"Dupont\", prenom => \"Jean\"); \nmy @t = %personne; \n# @t contient (\"nom\", \"Dupont\", \"prenom\", \"Jean\")"
+            }
+        ]
+    },
+    {
+        "titre" : "Gestion des fichiers",
+        "commandes" : [
+            {
+                "commande" : "-e /usr/temp/data",
+                "description" : "Vérifie si le fichier/dossier existe",
+                "exemple" : "if(-e /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "-f /usr/temp/data",
+                "description" : "Vérifie si le chemin fourni correspond à un fichier",
+                "exemple" : "if(-f /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "-d /usr/temp/data",
+                "description" : "Vérifie si le chemin fourni correspond à un dossier",
+                "exemple" : "if(-d /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "-l /usr/temp/data",
+                "description" : "Vérifie si le chemin fourni correspond à un lien symbolique",
+                "exemple" : "if(-l /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "-r /usr/temp/data",
+                "description" : "Vérifie si le fichier/dossier est lisible",
+                "exemple" : "if(-r /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "-w /usr/temp/data",
+                "description" : "Vérifie si le fichier/dossier est modifiable",
+                "exemple" : "if(-w /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "-x /usr/temp/data",
+                "description" : "Vérifie si le fichier/dossier est exécutable",
+                "exemple" : "if(-x /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "-o /usr/temp/data",
+                "description" : "Vérifie si le fichier/dossier appartient à l'utilisateur courant",
+                "exemple" : "if(-o /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "-z /usr/temp/data",
+                "description" : "Vérifie si le fichier/dossier est vide",
+                "exemple" : "if(-z /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "-s /usr/temp/data",
+                "description" : "Vérifie si le fichier/dossier a une taille non nulle et renvoie la taille en octets",
+                "exemple" : "if(-s /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "-M /usr/temp/data",
+                "description" : "Renvoie le nombre de jours depuis la dernière modification du fichier",
+                "exemple" : "if(-M /usr/temp/data){\n  ...\n}"
+            },
+            {
+                "commande" : "La fonction £glob£",
+                "description" : "Renvoie la liste des fichiers/dossiers correspondant à un motif",
+                "exemple" : "my @fichiers = glob(\"*.txt\"); \n# @fichiers contient la liste des fichiers .txt",
+                "information" : "on peut aussi utiliser une expression entre chevrons. Ainsi les deux variables ci-dessous sont égales : <pre>£my @fichiers = glob(\"*.txt\"); \nmy @fichiers = <*.txt>;£</pre>"
+            }
+        ]
+    },
+    {
+        "titre" : "Ouverture, lecture, écriture de fichiers",
+        "commandes" : [
+            {
+                "commande" : "Ouverture d'un fichier",
+                "description" : "Pour ouvrir un fichier, on utilise £open£, avec la syntaxe suivante : <pre>£open(<i>DESCRIPTEUR</i>, \"mode\", <i>NOM_FICHIER</i>)£</pre>\nLes modes se regroupent selon le tableau suivant : <table><thead><th>Mode</th><th>Description</th></thead><tbody><tr><td>£<£</td><td>Lecture</td></tr><tr><td>£>£</td><td>Écriture</td></tr><tr><td>£>>£</td><td>Écriture en fin de fichier</td></tr><tr><td>£+>£</td><td>Lecture/Écriture (écrasement)</td></tr><tr><td>£+<£</td><td>Lecture/Écriture (ajout)</td></tr></tbody></table>",
+                "exemple" : "open(my $f, \"<\", \"fichier.txt\"); # ouverture en lecture\nopen(my $f, \">\", \"fichier.txt\"); # ouverture en écriture",
+                "information" : "Le descripteur est une variable qui permet de manipuler le fichier.\nPour lire le contenu d'une commande du terminal, on pourra utiliser £open(my $f, \"commande\"|);£ où £commande£ est une commande shell\nDe même, pour écrire dans une commande shell, on pourra utiliser £open(my $f, \"|commande\");£ où £commande£ est une commande shell",
+                "attention" : "Il est indispensable de vérifier que l'ouverture du fichier s'est bien passée. Pour cela, la fonction £open£ renvoie une valeur booléenne qui indique si l'ouverture s'est bien passée. On peut procéder comme suit: <pre>£open(my $f, \"<\", \"fichier.txt\") or die \"Impossible d'ouvrir le fichier : $!\";£</pre>\nIci la variable £$!£ contient le message d'erreur renvoyé par le système."
+            },
+            {
+                "commande" : "Lecture d'un fichier",
+                "description" : "Pour lire un fichier, on utilise £<$f>£ où £$f£ est le descripteur du fichier",
+                "exemple" : "open(my $f, \"<\", \"fichier.txt\") or die \"Impossible d'ouvrir le fichier : $!\"; \nwhile (my $ligne = <$f>) { \n  chomp $ligne;\n  print $ligne; \n}",
+                "information" : "On peut aussi utiliser les chevrons dans un contexte de liste : <pre>£my @lignes = <$f>;£</pre> Dans ce cas, £@lignes£ contiendra toutes les lignes du fichier."
+            },
+            {
+                "commande" : "Ecriture d'un fichier",
+                "description" : "Pour écrire dans un fichier, on utilise £print£ avec le descripteur du fichier",
+                "exemple" : "open(my $f, \">\", \"fichier.txt\") or die \"Impossible d'ouvrir le fichier : $!\"; \nprint $f \"Bonjour à tous\\n\";",
+                "information" : "On peut aussi utiliser la fonction £printf£ pour écrire dans un fichier, de la même manière que pour £print£ : <pre>£printf $f \"Bonjour %s\\n\", \"à tous\";£</pre>"
+            },
+            {
+                "commande" : "Fermeture d'un fichier",
+                "description" : "Pour fermer un fichier, on utilise £close£ avec le descripteur du fichier",
+                "exemple" : "close $f;",
+                "information" : "Comme Perl gère la mémoire automatiquement, si vous ouvrez un deuxième fichier avec le même descripteur, le premier fichier sera fermé automatiquement.\n Il est toutefois conseillé de fermer explicitement les fichiers.\nCertains fichiers sont ouverts par Perl dès le lancement du programme : £STDIN£, £STDOUT£ et £STDERR£."
+            }
+        ]
+    },
+    {
+        "titre" : "Les expressions régulières, ou regex",
+        "commandes" : [
+            {
+                "commande" : "Recherche de motifs (correspondance)",
+                "description" : "Pour rechercher un motif dans une chaîne de caractères, on utilise l'opérateur £=~£ avec la syntaxe suivante : <pre>£$chaine =~ m/motif/;£</pre>",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \nif ($chaine =~ m/tous/) { \n  print \"Le mot 'tous' est présent dans la chaîne\\n\"; \n}",
+                "information" : "Cette expression retourne vrai ou faux, donc on l'utilise dans les conditions"
+            },
+            {
+                "commande" : "Recherche de motifs (substitution)",
+                "description" : "Pour remplacer un motif dans une chaîne de caractères, on utilise l'opérateur £=~£ avec la syntaxe suivante : <pre>£$chaine =~ s/motif/remplacement/;£</pre>",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \n$chaine =~ s/tous/elles/; \n# $chaine contient maintenant \"Bonjour à elles\"",
+                "information" : "Cette expression remplace la première occurrence du motif dans la chaîne. Pour remplacer toutes les occurrences, on peut ajouter le modificateur £g£ : <pre>£$chaine =~ s/motif/remplacement/g;£</pre>"
+            },
+            {
+                "commande" : "Les modificateurs",
+                "description" : "Les modificateurs permettent de modifier le comportement des regex. Voici une liste des modificateurs les plus courants : <table><thead><th>Modificateur</th><th>Description</th></thead><tbody><tr><td>£i£</td><td>Insensible à la casse</td></tr><tr><td>£m£</td><td>Mode multiligne</td></tr><tr><td>£s£</td><td>Mode ligne unique</td></tr><tr><td>£x£</td><td>Permet d'ajouter des commentaires dans la regex</td></tr><tr><td>£g£</td><td>Repère toutes les occurences de la regex</td></tr></tbody></table>",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \nif ($chaine =~ m/tous/i) { \n  print \"Le mot 'tous' est présent dans la chaîne\\n\"; \n}",
+                "information" : "Pour ajouter plusieurs modificateurs, on les ajoute à la fin de la regex : <pre>£$chaine =~ m/motif/gi;£</pre>"
+            },
+            {
+                "commande" : "Les métacaractères",
+                "description" : "Les métacaractères sont des caractères spéciaux qui ont une signification particulière dans les regex. Voici une liste des métacaractères les plus courants : <table><thead><th>Métacaractère</th><th>Description</th></thead><tbody><tr><td>£.£</td><td>Correspond à n'importe quel caractère</td></tr><tr><td>£^£</td><td>Correspond au début de la chaîne</td></tr><tr><td>£$£</td><td>Correspond à la fin de la chaîne</td></tr><tr><td>£[]£</td><td>Correspond à un ensemble de caractères</td></tr><tr><td>£|£</td><td>Correspond à l'opérateur OU</td></tr><tr><td>£()£</td><td>Permet de grouper des éléments</td></tr><tr><td>£\\£</td><td>Permet d'échapper un métacaractère</td></tr></tbody></table>",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \nif ($chaine =~ m/^Bonjour/) { \n  print \"La chaîne commence par 'Bonjour'\\n\"; \n}",
+                "information" : "Pour rechercher un métacaractère, il faut l'échapper avec un £\\£ : <pre>£$chaine =~ m/\\./;£</pre>"
+            },
+            {
+                "commande" : "Les quantificateurs",
+                "description" : "Les quantificateurs permettent de spécifier le nombre d'occurrences d'un élément. Voici une liste des quantificateurs les plus courants : <table><thead><th>Quantificateur</th><th>Description</th></thead><tbody><tr><td>£?£</td><td>0 ou 1 occurrence</td></tr><tr><td>£*£</td><td>0 ou plusieurs occurrences</td></tr><tr><td>£+£</td><td>1 ou plusieurs occurrences</td></tr><tr><td>£{n}£</td><td>n occurrences</td></tr><tr><td>£{n,}£</td><td>au moins n occurrences</td></tr><tr><td>£{n,m}£</td><td>entre n et m occurrences</td></tr></tbody></table>",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \nif ($chaine =~ m/\\s+/) { \n  print \"La chaîne contient au moins un espace\\n\"; \n}",
+                "information" : "Pour rendre un quantificateur non-greedy, il suffit d'ajouter un £?£ après le quantificateur : <pre>£$chaine =~ m/.*?motif/;£</pre>Rendre un quantificateur non greedy signifie qu'il va chercher le plus petit motif possible."
+            },
+            {
+                "commande" : "Les ensembles courants",
+                "description" : "Certains ensembles, comme £/[0-9]/£ ou £/[^0-9a-zA-Z_]/£, sont courants mais long à écrire. Voici une liste des ensembles les plus courants : <table><thead><th>Ensemble</th><th>Description</th></thead><tbody><tr><td>£\\d£</td><td>Chiffre (équivalent à [0-9])</td></tr><tr><td>£\\D£</td><td>Non-chiffre (équivalent à [^0-9])</td></tr><tr><td>£\\w£</td><td>Caractère alphanumérique (équivalent à [0-9a-zA-Z_])</td></tr><tr><td>£\\W£</td><td>Non-alphanumérique (équivalent à [^0-9a-zA-Z_])</td></tr><tr><td>£\\s£</td><td>Espace (équivalent à [ \\t\\n\\r\\f])</td></tr><tr><td>£\\S£</td><td>Non-espace (équivalent à [^ \\t\\n\\r\\f])</td></tr></tbody></table>"
+            },
+            {
+                "commande" : "Les assertions",
+                "description" : "Les assertions permettent de spécifier une position dans la chaîne de caractères. Voici une liste des assertions les plus courantes : <table><thead><th>Assertion</th><th>Description</th></thead><tbody><tr><td>£\\b£</td><td>Limite de mot</td></tr><tr><td>£\\B£</td><td>Non-limite de mot</td></tr><tr><td>£^£</td><td>Début de chaîne</td></tr><tr><td>£$£</td><td>Fin de chaîne</td></tr><tr><td>£\\A£</td><td>Début de chaîne (même avec /m)</td></tr><tr><td>£\\Z£</td><td>Fin de chaîne ou fin de ligne</td></tr><tr><td>£\\z£</td><td>Fin de chaîne</td></tr></tbody></table>",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \nif ($chaine =~ m/\\bBonjour\\b/) { \n  print \"Le mot 'Bonjour' est présent dans la chaîne\\n\"; \n}",
+                "information" : "Pour rendre une assertion non-greedy, il suffit d'ajouter un £?£ après l'assertion : <pre>£$chaine =~ m/^.*?motif/;£</pre>"
+            },
+            {
+                "commande" : "Les captures",
+                "description" : "Les captures permettent de récupérer des parties de la chaîne de caractères. Pour cela, on utilise les parenthèses dans la regex : <pre>£$chaine =~ m/(motif)/;£</pre>",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \nif ($chaine =~ m/(\\w+) à (\\w+)/) { \n  print \"Le mot '$1' est présent dans la chaîne\\n\"; \n}",
+                "information" : "Les captures sont stockées dans les variables £$1£, £$2£, etc. Pour les utiliser, il faut les placer dans la chaîne de remplacement : <pre>£$chaine =~ s/(\\w+) à (\\w+)/$2 et $1/;£</pre>"
+            },
+            {
+                "commande" : "Les backreferences",
+                "description" : "Les backreferences permettent de faire référence à une capture dans la regex. Pour cela, on utilise £\\1£, £\\2£, etc. : <pre>£$chaine =~ m/(\\w+) à \\1/;£</pre>",
+                "exemple" : "my $chaine = \"Bonjour à Bonjour\"; \nif ($chaine =~ m/(\\w+) à \\1/) { \n  print \"Le mot '$1' est présent deux fois dans la chaîne\\n\"; \n}",
+                "information" : "Les backreferences permettent de vérifier qu'un élément est présent plusieurs fois dans la chaîne"
+            },
+            {
+                "commande" : "Les lookaheads et lookbehinds",
+                "description" : "Les lookaheads et lookbehinds permettent de vérifier qu'un élément est suivi ou précédé d'un autre élément, sans le capturer. Voici une liste des lookaheads et lookbehinds les plus courants : <table><thead><th>Lookaround</th><th>Description</th></thead><tbody><tr><td>£(?=motif)£</td><td>Positive lookahead</td></tr><tr><td>£(?!motif)£</td><td>Negative lookahead</td></tr><tr><td>£(?<=motif)£</td><td>Positive lookbehind</td></tr><tr><td>£(?<!motif)£</td><td>Negative lookbehind</td></tr></tbody></table>",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \nif ($chaine =~ m/\\w+ (?=à)/) { \n  print \"Le mot avant 'à' est présent dans la chaîne\\n\"; \n}",
+                "information" : "Les lookaheads et lookbehinds permettent de vérifier qu'un élément est présent sans le capturer"
+            },
+            {
+                "commande" : "Valeurs de retour de m//",
+                "description" : "En contexte scalaire, la regex renvoie vrai ou faux. En contexte liste, la regex renvoie les captures. On peut combiner cela avec un test (en contexte de liste) pour vérifier si les captures sont présentes",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \nmy @captures = $chaine =~ m/(\\w+) à (\\w+)/; \nif (@captures) { \n  print \"Les captures sont présentes dans la chaîne\\n\"; \n}"
+            },
+            {
+                "commande" : "Les variables spéciales",
+                "description" : "Les variables £$1£, £$2£, etc. sont définies seulement si la regex a capturé quelque chose. Il est donc conseillé de vérifier si les captures sont définies avant de les utiliser",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \nif ($chaine =~ m/(\\w+) à (\\w+)/) { \n  if (defined $1) { \n    print \"La capture 1 est définie : $1\\n\"; \n  } \n  if (defined $2) { \n    print \"La capture 2 est définie : $2\\n\"; \n  } \n}",
+                "information" : "Il existe d'autres variables spéciales, répertoriées dans le tableau suivant : <table><thead><th>Variable</th><th>Description</th></thead><tbody><tr><td>£$&£</td><td>Contient la chaîne capturée</td></tr><tr><td>£$`£</td><td>Contient la partie de la chaîne avant la capture</td></tr><tr><td>£$'£</td><td>Contient la partie de la chaîne après la capture</td></tr></tbody></table>Ces variables sont à utiliser avec précaution, car elles ralentissent considérablement l'exécution du script"
+            },
+            {
+                "commande" : "Placer une variable dans une regex",
+                "description" : "Il est tout à fait possible de placer une variable dans une regex. Elle y sera évaluée avant d'être utilisée",
+                "exemple" : "my $motif = \"Bonjour\"; \nmy $chaine = \"Bonjour à tous\"; \nif ($chaine =~ m/$motif/) { \n  print \"Le mot 'Bonjour' est présent dans la chaîne\\n\"; \n}",
+                "attention" : "Il est conseillé d'échapper les caractères spéciaux dans la variable avant de l'utiliser dans une regex (pour éviter une injection). Pour cela, la fonction £quotemeta£ est très utile : <pre>£my $motif = quotemeta(\"Bonjour\");£</pre>Elle échappe tous les caractères spéciaux de la regex",
+                "information" : "Par mesure de sécurité, il vaut toujours mieux appeler £quotemeta£ sur une variable avant de l'utiliser dans une regex"
+            },
+            {
+                "commande" : "L'opérateur de translation",
+                "description" : "L'opérateur de translation permet de remplacer des caractères par d'autres. Il est défini par £tr£ ou £y£ : <pre>£$chaine =~ tr/caracteres_a_remplacer/caracteres_de_remplacement/;£</pre>",
+                "exemple" : "my $chaine = \"Bonjour à tous\"; \n$chaine =~ tr/aeiou/aeiouy/; \n# $chaine contient maintenant \"Bonyour à toyus\"",
+                "attention" : "Les deux chaînes doivent avoir la même longueur. Si la chaîne de remplacement est plus longue que la chaîne à remplacer, les caractères en trop sont ajoutés à la fin de la chaîne de remplacement"
+            }
+        ]
+    },
+    {
+        "titre" : "Les références",
+        "commandes" : [
+            {
+                "commande": "Déclaration (référence sur scalaire)",
+                "description": "Pour déclarer une référence, on utilise le caractère £\\£ suivi de la variable à référencer",
+                "exemple": "my $a = 42; \nmy $ref = \\$a;",
+                "information": "Pour déréférencer une référence, on utilise le caractère £$£ devant la référence : <pre>£my $a = 42; \nmy $ref = \\$a; \nprint $$ref; \n# affiche 42£</pre>"
+            },
+            {
+                "commande": "Intérêt (référence sur scalaire)",
+                "description": "Une des plus grandes utilités des références est de pouvoir passer des variables à des fonctions sans les copier",
+                "exemple": "sub increment { \n  my $ref = shift; \n  $$ref++; \n} \nmy $a = 42; \nincrement(\\$a); \n# $a contient maintenant 43",
+                "information": "De plus, en temps normal, les variables locales à une fonctions sont détruites à la fin de la fonction. Avec les références, on peut renvoyer une référence à une variable locale, et cette variable sera toujours accessible après la fin de la fonction"
+            },
+            {
+                "commande": "Déclaration (référence sur tableau)",
+                "description": "Pour déclarer une référence sur un tableau, on utilise le caractère £\\£ suivi du tableau à référencer",
+                "exemple": "my @t = (1, 2, 3); \nmy $ref = \\@t;",
+                "information": "Pour déréférencer une référence sur un tableau, on utilise le caractère £@£ devant la référence : <pre>£my @t = (1, 2, 3); \nmy $ref = \\@t; \nprint @{$ref}; \n# affiche 1 2 3£</pre>"
+            },
+            {
+                "commande": "Accès à un élément de tableau via une référence",
+                "description": "Pour accéder à un tableau via les références, il suffit de suivre les règles suivantes : <pre>£my @t = (1,\"a\",3)\n$my $reft = \\@reft£</pre> <table><thead><th>Tableau</th><th>Référence</th></thead><tbody><tr><td>£t£</td><td>£$reft£</td></tr><tr><td>£@t£</td><td>£@$reft£</td></tr><tr><td>£$t[i]£</td><td>£$$reft[i]£</td></tr><tr><td>£$t[i]£</td><td>£$reft-&gt;[i]£</td></tr></tbody></table>",
+                "exemple": "my @t = (1, 2, 3); \nmy $ref = \\@t; \nprint $ref->[0]; \n# affiche 1",
+                "information": "Pour accéder à un élément d'un tableau via une référence, on utilise £->£ entre la référence et l'indice de l'élément"
+            },
+            {
+                "commande": "Tableaux de tableaux",
+                "description": "Comme Perl aplatit les tableaux, il est impossible de stocker un tableau dans un tableau. Pour contourner cela, on utilise les références",
+                "exemple": "my @t1 = (1, 2, 3); \nmy @t2 = (4, 5, 6); \nmy @t3 = (\\@t1, \\@t2); \nprint $t3[0][1]; \n# affiche 2"
+            },
+            {
+                "commande": "Déclaration (référence sur table de hachage)",
+                "description": "Pour déclarer une référence sur une table de hachage, on utilise le caractère £\\£ suivi de la table de hachage à référencer",
+                "exemple": "my %h = (nom => \"Dupont\", prenom => \"Jean\"); \nmy $ref = \\%h;",
+                "information": "Pour déréférencer une référence sur une table de hachage, on utilise le caractère £%£ devant la référence : <pre>£my %h = (nom => \"Dupont\", prenom => \"Jean\"); \nmy $ref = \\%h; \nprint %{$ref}; \n# affiche nomDupontprenomJean£</pre>"
+            },
+            {
+                "commande": "Accès à un élément de table de hachage via une référence",
+                "description": "Pour accéder à une table de hachage via les références, il suffit de suivre les règles suivantes : <pre>£my %h = (\"nom\" => \"Dupont\", \"prenom\" => \"Jean\")\n$my $refh = \\%h£</pre> <table><thead><th>Hash</th><th>Référence</th></thead><tbody><tr><td>£h£</td><td>£$refh£</td></tr><tr><td>£%h£</td><td>£%$refh£</td></tr><tr><td>£h{cle}£</td><td>£$$refh{cle}£</td></tr><tr><td>£h{cle}£</td><td>£$refh-&gt;{cle}£</td></tr></tbody></table>",
+                "exemple": "my @t = (1, 2, 3); \nmy $ref = \\@t; \nprint $ref->[0]; \n# affiche 1",
+                "information": "Pour accéder à un élément d'un tableau via une référence, on utilise £->£ entre la référence et l'indice de l'élément"
+            },
+            {
+                "commande" : "Références anonymes vers scalaires",
+                "description" : "Il est possible de créer des références anonymes, c'est-à-dire des références sans variable associée",
+                "exemple" : "my $ref = \\42; \nprint $$ref; \n# affiche 42",
+                "information" : "Les références anonymes sont très utiles pour passer des valeurs constantes à des fonctions"
+            },
+            {
+                "commande" : "Références anonymes vers tableaux",
+                "description" : "Il est possible de créer des références anonymes vers des tableaux",
+                "exemple" : "my $ref = [1, 2, 3]; \nprint $ref->[1]; \n# affiche 2",
+                "information" : "On peut ainsi créer des tableaux de tableaux beaucoup plus facilement : <pre>£my $ref = [[1, 2, 3], [4, 5, 6]];£</pre>"
+            },
+            {
+                "commande" : "Références anonymes vers tables de hachage",
+                "description" : "Il est possible de créer des références anonymes vers des tables de hachage",
+                "exemple" : "my $ref = {nom => \"Dupont\", prenom => \"Jean\"}; \nprint $ref->{prenom}; \n# affiche Jean",
+                "information" : "Les références anonymes sont très utiles pour passer des tables de hachage à des fonctions"
+            },
+            {
+                "commande" : "L'opérateur ref",
+                "description" : "L'opérateur £ref£ permet de connaître le type d'une référence",
+                "exemple" : "my $a = 42; \nmy $ref = \\$a; \nprint ref($ref); \n# affiche SCALAR",
+                "information" : "Les types de références sont : <ul><li>£SCALAR£ pour une référence sur scalaire</li><li>£ARRAY£ pour une référence sur tableau</li><li>£HASH£ pour une référence sur table de hachage</li><li>£false£ si la valeur testée n'est pas une référence</li></ul>"
+            },
+            {
+                "commande" : "Le dumper",
+                "description" : "Le module £Data::Dumper£ permet d'afficher le contenu d'une variable complexe",
+                "exemple" : "use Data::Dumper; \nmy $h = {nom => \"Dupont\", prenom => \"Jean\"}; \nprint Dumper($h); # affiche $VAR1 = { 'nom' => 'Dupont', 'prenom' => 'Jean' };",
+                "information" : "Le module £Data::Dumper£ est très utile pour débugger des variables complexes"
+            },
+            {
+                "commande" : "Les références circulaires",
+                "description" : "Les références circulaires sont des références qui se référencent mutuellement.",
+                "exemple" : "my $a = 42; \nmy $b = 43; \nmy $refa = \\$a; \nmy $refb = \\$b; \n$$refa = $refb; \n$$refb = $refa;",
+                "information" : "Les références circulaires sont très utiles pour créer des structures de données complexes, comme des arbres ou des graphes",
+                "attention" : "Il est très facile de créer des références circulaires par erreur, ce qui peut entraîner des fuites mémoire. Il est donc conseillé de les éviter autant que possible.\nDans le cas où vous avez une référence circulaire, il faut absolument détruire toutes les autoréférences avant de détruire les variables."
+            },
+            {
+                "commande" : "Les références sur fonctions",
+                "description" : "Il est possible de créer des références sur des fonctions",
+                "exemple" : "sub dire_bonjour { \n  print \"Bonjour à tous\\n\"; \n} \nmy $ref = \\&dire_bonjour; \n&$ref();",
+                "information" : "On peut donc passer des fonctions dans des tableaux ou dans des tables de hachages"
+            }
+        ]
+    },
+    {
+        "titre" : "Les modules",
+        "commandes" : [
+            {
+                "commande" : "Utilisation d'un module",
+                "description" : "Pour utiliser un module, on utilise la directive £use£ suivie du nom du module",
+                "exemple" : "use strict; \nuse warnings; \nuse Data::Dumper;",
+                "information" : "La plupart des modules doivent être installés sur votre machine pour pouvoir être utilisés."
+            },
+            {
+                "commande" : "Trouver et installer les modules",
+                "description" : "Pour trouver des modules, on peut utiliser le site <a href=\"https://metacpan.org/\">MetaCPAN</a>. Pour installer un module, on utilise le gestionnaire de modules CPAN : <pre>£cpan Nom::Module£</pre>"
+            },
+            {
+                "commande" : "Math::Trig",
+                "description" : "Le module £Math::Trig£ fournit des fonctions trigonométriques",
+                "exemple" : "use Math::Trig; \nmy $arcsinus = asin(1);",
+                "information" : "Le module £Math::Trig£ fournit les fonctions suivantes : <ul><li>£acos£ : arc cosinus</li><li>£asin£ : arc sinus</li><li>£atan£ : arc tangente</li><li>£atan2£ : arc tangente de y/x</li><li>£cos£ : cosinus</li><li>£sin£ : sinus</li><li>£tan£ : tangente</li><li>£acosh£ : arc cosinus hyperbolique</li><li>£asinh£ : arc sinus hyperbolique</li><li>£atanh£ : arc tangente hyperbolique</li><li>£cosh£ : cosinus hyperbolique</li><li>£sinh£ : sinus hyperbolique</li><li>£tanh£ : tangente hyperbolique</li></ul>"
+            },
+            {
+                "commande" : "File::Copy",
+                "description" : "Le module £File::Copy£ fournit des fonctions pour copier des fichiers",
+                "exemple" : "use File::Copy; \ncopy(\"fichier1.txt\", \"fichier2.txt\");",
+                "information" : "Le module £File::Copy£ fournit les fonctions suivantes : <ul><li>£copy£ : copie un fichier</li><li>£move£ : déplace un fichier</li></ul>"
+            }
+        ]
+    },
+    {
+        "titre" : "Écrire un module",
+        "commandes" : [
+            {
+                "commande" : "Extension du fichier",
+                "description" : "Les modules Perl ont l'extension £bash .pm£",
+                "exemple" : "bash touch monpackage.pm"
+            },
+            {
+                "commande" : "Exemple d'un module",
+                "description" : "Voici un exemple de module qui fournit une fonction £dire_bonjour£ :",
+                "exemple" : "# --- fichier MonPackage.pm ---\npackage MonPackage; \nsub dire_bonjour { \n  print \"Bonjour à tous\\n\"; \n} \n1;",
+                "information" : "La dernière ligne £1;£ est indispensable pour que Perl sache que le module a été correctement chargé",
+                "attention" : "Le nom du fichier doit être le même que le nom du package"
+            },
+            {
+                "commande" : "Utilisation d'un module personnalisé",
+                "description" : "Pour utiliser un module personnalisé, on utilise la directive £use£ suivie du nom du module. Ensuite, on peut appeler les fonctions du module, en les préfixant par le nom du module",
+                "exemple" : "# En reprenant le package MonPackage précédent\nuse MonPackage; \nMonPackage::dire_bonjour();",
+                "information" : "Il est possible de renommer un module lors de son importation : <pre>£use MonPackage qw(dire_bonjour); \ndire_bonjour();£</pre>"
+            },
+            {
+                "commande" : "Variables liées au module",
+                "description" : "On peut tout à fait utiliser des variables dans les modules. Celles-ci rentrent dans deux catégories différentes ; <ul><li>Privée : Elle est déclarée avec £my£ et est accessible uniquement en dehors du module</li><li>Publique : Elle est déclarée avec £our£ et est accessible dans tout programme utilisant le module.</li></ul>",
+                "exemple" : "#Dans le module MonPackage.pm\npackage MonPackage; \nmy $x = 1;\nour $y = 2;\n1;\n\n#Dans le fichier main.pl\nuse MonPackage;\n#Erreur\nprint $MonPackage::x;\n\n#Correct\nprint $MonPackage::y; # affiche 2",
+                "attention" : "Il n'y a pas d'erreur dans l'exemple, le nom de la variable entière est ici £MonPackage::y£, donc pour l'appeler dans un contexte scalaire, on l'appelle bien avec £$MonPackage::y£. Ne surtout pas écrire £MonPackage::$x£ !"
+            },
+            {
+                "commande" : "Blocs BEGIN et END",
+                "description" : "Dans un module, on peut utiliser les blocs BEGIN et END afin d'indiquer des actions à réaliser dès le chargement du module (BEGIN) ou à la fin de son usage (END)",
+                "exemple" : "package MonPackage;\nuse strict;\nuse warnings;\n\nsub f {\n  ...\n}\nBEGIN {\n   ...\n}\nEND {\n  ...\n}\n1;",
+                "attention" : "Les instructions placées dans le blocs BEGIN sont exécutées avant même les £use ...£ dans le module",
+                "information" : "Ces blocs peuvent être utiles quand vous devez conditionner l'utilisation du module par une connexion réseau."
+            },
+            {
+                "commande" : "Les exports",
+                "description" : "Il peut être très agaçant à la longue d'écrire £MonPackage::f£.Pour avoir simplement à utiliser £f£, il faut placer cet élément dans l'espace de nommage du script. On fait alors un \"export\". On utilise alors le module £Exporter£, comme décrit ci-dessous :",
+                "exemple" : "# --- fichier MonPackage.pm ---\npackage MonPackage;\nuse Exporter;\nour @ISA = qw(Exporter);\nour @EXPORT = qw(f $x) # Les exports sont f et la variable scalaire $x\nsub f {\n  ...\n}\nmy $x = 1;\n1;\n# ---fichier main.pl ---\nuse MonPackage;\nprint $x\nf(...);"
+            },
+            {
+                "commande" : "Export individuel",
+                "description" : "On peut dans certains cas vouloir importer un symbole individuellement (par exemple parce qu'il est beaucoup utilisé dans le script). Pour cela, le symbole en question doit être dans le tableau £@EXPORT_OK£ du module.",
+                "exemple" : "# --- fichier MonPackage.pm ---\npackage MonPackage;\nuse Exporter;\nour @ISA = qw(Exporter);\nour @EXPORT_OK = qw(f $x); # f et $x peuvent être importées manuellement par l'utilisateur.\nsub f {\n  ...\n}\nmy $x = 1;\n1;\n# ---fichier main.pl ---\nuse MonPackage qw(f);\nf(...);",
+                "attention" : "Pour une raison étrange, si vous importez certaines valeurs manuellement d'un module, les valeurs exportées par défaut par ce module ne le sont plus. Pour pouvoir quand même utiliser ces valeurs, il faut utiliser le flag £:DEFAULT£ : <pre>£# --- fichier main.pl ---\nuse MonPackage qw(:DEFAULT f);£</pre>"
+            },
+            {
+                "commande" : "Export par tags",
+                "description" : "Pour des fonctions très souvent exportées ensemble, mais pour lesquelles l'export par défaut n'est pas souhaitable, on peut utiliser les tags, grâce à la variable £%EXPORT_TAGS£ :",
+                "exemple" : "# ---fichier MonPackage.pm ---\nour %EXPORT_TAGS = (T1 => [qw(f $x)],\n                    T2 => [qw($x $y)]);\n\n# --- fichier main.pl ---\nuse MonPackage qw(:T1);\nf(...);\nprint $x;",
+                "attention" : "Pour pouvoir être importés de cette façon, les symboles présents dans ces tags doivent être soit dans £@EXPORT£ ou £@EXPORT_OK£"
+            },
+            {
+                "commande" : "Fonctions privées",
+                "description" : "Officiellement, il n'y a aucun moyen de mettre une fonction en privée en Perl. Cependant, dans les modules, les fonctions préfixées par £_£(underscore) sont considérées comme privées, et l'utilisateur ne doit pas les appeler. Elles ne figurent jamais dans les listes d'exports.\nCependant il existe bien un moyen de créer une fonction non accessible de l'extérieur du module, mais elle n'est pas recommandée.",
+                "exemple" : "package MonPackage;\nuse strict;\nuse warnings;\nmy f = sub {\n  print(\"Coucou !\");\n}\n1;",
+                "information" : "Cette notation utilise les références anonymes, et la fonction est mise dans une variable, qui est elle privée."
+            },
+            {
+                "commande" : "Documenter les modules",
+                "description" : "Pour documenter un module, il faut l'écrire à l'intérieur même de celui-ci, avec une syntaxe nommée POD.Ainsi on a : <ul><li>£=head1 [NOM DU TITRE]£ : permet de créer des titres</li><li>£=head2 [NOM DU TITRE]£ : permet de créer des sous-titres</li><li>£=over£ : permet de mettre en avant un texte et de commencer une liste</li><li>£=item£ : permet de créer un élément de liste</li><li>£=back£ : permet de créer un retrait en arrière, et de terminer une liste</li><li>£=cut£ : permet de terminer le POD</li></ul>",
+                "information" : "Il est coneillé d'alterner entre POD et code. En particulier, il vaut mieux documenter une fonction et ensuite écrire son code.",
+                "exemple" : "package MonPackage;\n=head1 NAME\n\nMonPackage\n\n=head1 SYNOPSIS\n\nuse MonPackage;\nbonjour(\"Adam\")\n\n=head1 DESCRIPTION\n\nCe module contient les fonctions suivantes : ...\n\n=head2 Exports\n=over\n\n=item :T1 ...\n\n=item :T2 ...\n\n=back\n\n=cut\n\nsub bonjour {\n  my $n = shift;\n  print \"Bonjour, $n\";\n}\n1;"
+            }
+        ]
+    },
+    {
+        "titre" : "Programmation Orientée Objet",
+        "commandes" : [
+            {
+                "commande" : "Créer une classe",
+                "description" : "Pour créer un objet, on crée un module (avec l'extension £bash .pm£) et on crée une fonction qui sera le constructeur de cet objet",
+                "exemple" : "# --- fichier Vehicule.pm ---\npackage Vehicule;\nuse strict;\nuse warnings;\nsub new {\n  my ($class, $nbRoues, $couleur) = @_;\n  my $self = {};\n  bless($self, $class);\n  $self->{NB_ROUES} = $nbRoues;\n  $self->{COULEUR} = $couleur;\n  return $self;\n}\n1;",
+                "information" : "Plusieurs observations sont à faire : <ul><li>La fonction £new()£ est le constructeur de la classe. Ce constructeur peut cependant porter n'importe quel nom.</li><li>Le premier paramètre passé au constructeur est le nom de la classe. Les autres paramètres pourront servir à l'initialisation de l'objet.</li><li>La fonction £bless()£ lie la référence vide (à une table de hachage) à la classe. On a ainsi créé l'objet.</li><li>En réalité, tous les champs de l'objets sont stockés dans la table de hachage £$self£, qui enfin renvoyée en résultat de la fonction.</li></ul>"
+            },
+            {
+                "commande" : "Utiliser un objet de la classe",
+                "description" : "Pour créer un objet, il suffit d'invoquer la classque, puis d'appeler le constructeur sur une variable.",
+                "exemple" : "# --- fichier main.pl ---\nuse Vehicule; #On indique vouloir utiliser la classe Vehicule\n...\nmy $v = Vehicule->new(2, \"noir\")",
+                "information" : "Ici, on peut aussi utiliser la syntaxe £my $v = new Vehicule(2, \"noir\")£. Cependant, cette syntaxe induit que new est un mot clé, alors qu'il est en réalité une fonction d'un nom complètement arbitraire."
+            },
+            {
+                "commande" : "Plusieurs constructeurs",
+                "description" : "il est tout à fait possible d'écrire plusieurs constructeurs pour le même objet. Il suffit de créer une autre fonction.",
+                "exemple" : "# --- fichier Vehicule.pm ---\npackage Vehicule;\nuse strict;\nuse warnings;\nsub new {\n  my ($class, $nbRoues, $couleur) = @_;\n  my $self = {};\n  bless($self, $class);\n  $self->{NB_ROUES} = $nbRoues;\n  $self->{COULEUR} = $couleur;\n  return $self;\n}\n\nsub new2 {\n my ($class, $couleur) = @_;\n  my $self = {};\n  bless($self, $class);\n  $this->{COULEUR} = $couleur;\n  return $this;\n}\n1;",
+                "information" : "Regardez, si vous utilisez à ce moment a syntaxe orientée Java, cela donne £my $v = new2 Vehicule(\"noir\")£. Beaucoup moins intuitif tout de suite..."
+            },
+            {
+                "commande" : "Méthodes",
+                "description" : "Pour appeler une méthode de la classe, il suffit de créer une nouvelle fonction dans la classe.",
+                "exemple" : "# --- fichier Vehicule.pm ---\nsub afficherVitesse {\n  my ($self, $vitesse) = @_;\n  print \"J'ai $this->{NB_ROUES} et je roule à $vitesse km/h.;\"\n}\n\n# --- fichier main.pl ---\n$v->afficherVitesse(90);",
+                "information" : "La seule chose qui change par rapport à une fonction classique, c'est qu'elle prend en premier argument l'objet en question, donc on sait qu'il s'agit bien d'une fonction membre."
+            },
+            {
+                "commande" : "Membre publics/privés",
+                "description" : "Au même titre que les fonctions publiques/privées dans un module, les données d'un objet ne sont jamais protégées. Ainsi par convention, on préfixe par un underscore (£_£) toutes les données \"privées\" d'un objet."
+            },
+            {
+                "commande" : "Destruction d'un objet",
+                "description" : "Pour détruire un objet, il suffit de supprimer la référence qui y pointe. Le garbage collector de Perl s'occupe du reste.",
+                "exemple" : "# --- fichier main.pl ---\nuse Vehicule;\n$v = Vehicule->new2(\"blanc\");\n$v = undef;",
+                "information" : "Pour exécuter certaines instructions à la destruction, il vous faut créer une méthode £DESTROY£ qui sera exécutée à la destruction de l'objet"
+            },
+            {
+                "commande" : "Héritage",
+                "description" : "L'héritage étant la clé de la POO, Perl trouve un moyen de l'implémenter au moyen de la variable £@ISA£",
+                "exemple" : "# --- fichier Velo.pm ---\npackage Velo;\nuse strict;\nuse warnings;\nuse Vehicule; #On utilise l'objet Vehicule\nour @ISA = qw(Vehicule);\n\n...\n\n1;"
+            },
+            {
+                "commande" : "Constructeur de la classe fille",
+                "description" : "Pour appeler le constructeur de la classe mère, il suffit d'appeler la méthode £SUPER::new()£",
+                "exemple" : "sub new {\n  my ($class,$couleur,$nbVitesses) = @_;\n  my $this = $class->SUPER::new( 2, $couleur );\n  $this->{NB_VITESSES} = $nbVitesses;\n  return bless($this,$class);\n}",
+                "attention" : "£SUPER£ utilise le constructeur de la classe mère.\nAucun appel n'est effectué au constructeur de la classe mère si vous ne le faites pas explicitement."
+            },
+            {
+                "commande" : "Connaître la classe d'un objet",
+                "description" : "Certaines utilisations peuvent nécessiter de connaître la classe d'un objet. Pour cela, on utilise l'opérateur £ref£, qui permet habituellement de connaître le type d'une variable.",
+                "exemple" : "if (ref($v) eq \"Vehicule\") { \n  print \"C'est un véhicule\"; \n}",
+                "information" : "Cependant, cette méthode n'est pas parfaite. En effet, si l'on veut chercher tous les véhicules mais que l'on a un velo, l'opérateur renverra £Velo£, et non £Vehicule£.\nPour remédier à ça, on peut utiliser la méthode £isa£ du package £UNIVERSAL£ : <pre>£use UNIVERSAL;\nif(UNIVERSAL::isa($v, \"Vehicule\")) {\n  print \"C'est un véhicule !\";\n}£</pre>"
+            },
+            {
+                "commande" : "Variables statiques",
+                "description" : "Il est possible de créer des variables statiques dans une classe, c'est-à-dire des variables qui sont communes à toutes les instances de la classe.",
+                "exemple" : "# --- fichier Vehicule.pm ---\npackage Vehicule;\nuse strict;\nuse warnings;\nour $nbVehicules = 0;\nsub new {\n  my ($class, $nbRoues, $couleur) = @_;\n  my $self = {};\n  bless($self, $class);\n  $self->{NB_ROUES} = $nbRoues;\n  $self->{COULEUR} = $couleur;\n  $nbVehicules++;\n  return $self;\n}\n1;",
+                "information" : "Ici, la variable £$nbVehicules£ est commune à toutes les instances de la classe £Vehicule£. Elle est incrémentée à chaque fois qu'un nouvel objet est créé."
+            },
+            {
+                "commande" : "Méthodes statiques",
+                "description" : "Il est possible de créer des méthodes statiques dans une classe, c'est-à-dire des méthodes qui ne dépendent pas d'une instance de la classe.",
+                "exemple" : "# --- fichier Vehicule.pm ---\npackage Vehicule;\nuse strict;\nuse warnings;\nour $nbVehicules = 0;\nsub new {\n  my ($class, $nbRoues, $couleur) = @_;\n  my $self = {};\n  bless($self, $class);\n  $self->{NB_ROUES} = $nbRoues;\n  $self->{COULEUR} = $couleur;\n  $nbVehicules++;\n  return $self;\n}\nsub getNbVehicules {\n  my ($class) = @_;\n  return $nbVehicules;\n}\n1;\n\n# --- fichier main.pl ---\nuse Vehicule;\nmy $v1 = Vehicule->new(4, \"rouge\");\nmy $v2 = Vehicule->new(2, \"bleu\");\nprint Vehicule->getNbVehicules();",
+                "information" : "On notera que tous les constructeurs sont des méthodes statiques."
+            },
+            {
+                "commande" : "Appeler une méthode statique sur un objet",
+                "description" : "Il est possible d'appeler une méthode statique sur un objet, mais cela requiert une petite modification sur les références bénies",
+                "exemple" : "# --- fichier Vehicule.pm ---\npackage Vehicule;\nuse strict;\nuse warnings;\nour $nbVehicules = 0;\nsub new {\n  my ($class, $nbRoues, $couleur) = @_;\n  $class = ref($class) || $class; # l'instruction à changer\n  my $self = {};\n  bless($self, $class);\n  $self->{NB_ROUES} = $nbRoues;\n  $self->{COULEUR} = $couleur;\n  $nbVehicules++;\n  return $self;\n}\n\n# --- fichier main.pl ---\nuse Vehicule;\n$v = Vehicule->new(1,\"noire\");\n$v2 = $v ->new(2,\"rouge\");"
+            }
+        ]
+    }
+]
