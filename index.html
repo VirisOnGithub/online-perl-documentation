@@ -111,6 +111,24 @@
                     outline: none;
                 }
             }
+
+
+
+            @media screen and (max-width: 768px) {
+                .courses {
+                    margin: 0;
+                }
+
+                .cadre-sommaire {
+                    position: fixed;
+                    top: 10%;
+                    left: 10%;
+                    width: 80%;
+                    height: 80%;
+                    z-index: 1000;
+                    background-color: white;
+                }
+            }
         </style>
         <style>
             /* animations pour les titres du sommaire */
@@ -316,24 +334,51 @@
                     a.href = `#${h2.id}`;
                     a.textContent = h2.textContent;
                     a.onclick = () => {
-                        const ul = document.querySelector("nav ul");
+                        var ul;
+                        if(window.matchMedia("(min-width: 769px)").matches){
+                            ul = document.querySelector("nav ul");
+                        } else {
+                            ul = document.querySelector(".cadre-sommaire ul");
+                        }
                         ul.classList.add("animate-out");
                         ul.addEventListener('animationend', () => ul.remove());
                         isDeployed = false;
+                        if(window.matchMedia("(max-width: 768px)").matches){
+                            document.querySelector(".cadre-sommaire").remove();
+                        }
                     }
                     li.appendChild(a);
                     ul.appendChild(li);
                 });
                 ul.classList.add("animate-in");
-                nav.appendChild(ul);
+                if(window.matchMedia("(min-width: 769px)").matches){
+                    nav.appendChild(ul);   
+                } else {
+                    var cadreSommaire = document.createElement("div");
+                    cadreSommaire.classList.add("animate-in");
+                    cadreSommaire.classList.add("cadre-sommaire");
+                    cadreSommaire.appendChild(ul);
+                    document.body.appendChild(cadreSommaire);
+                }
                 isDeployed = true;
             } else {
-                const ul = document.querySelector("nav ul");
-                ul.classList.replace("animate-in", "animate-out");
-                ul.addEventListener('animationend', () => {
-                    ul.remove();
-                    isDeployed = false;
-                }, { once: true });
+                
+                if (window.matchMedia("(min-width: 769px)").matches) {
+                    const ul = document.querySelector("nav ul");
+                    ul.classList.replace("animate-in", "animate-out");
+                    ul.addEventListener('animationend', () => {
+                        ul.remove();
+                        isDeployed = false;
+                    }, { once: true });
+                } else {
+                    const cadreSommaire = document.querySelector(".cadre-sommaire");
+                    cadreSommaire.classList.replace("animate-in", "animate-out");
+                    cadreSommaire.addEventListener('animationend', () => {
+                        cadreSommaire.remove();
+                        isDeployed = false;
+                    }, { once: true });
+                
+                }
             }
         });
     </script>
